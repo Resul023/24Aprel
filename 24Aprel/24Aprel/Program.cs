@@ -94,15 +94,21 @@ namespace _24Aprel
                         newProduct.Count = count;
                         newProduct.IsNew = productIsNew;
                         newProduct.CreatedAt = DateTime.Now;
+
+
                         EcommerDbContext dbContext = new EcommerDbContext();
-                        
-                        
                         ProductsService newServices = new ProductsService();
-                        newServices.AddProduct(newProduct);
+                        if (newServices.AddProduct(newProduct, dbContext)>0)
+                        {
+                            dbContext.products.Add(newProduct);
+                        }
+                        
+                        
                             
 
                         break;
                     case 2:
+                        
                         Console.WriteLine("Write product name");
                         string namePro = Console.ReadLine();
                          dbContext = new EcommerDbContext();
@@ -185,5 +191,6 @@ namespace _24Aprel
 
 
         }
+        
     }
 }

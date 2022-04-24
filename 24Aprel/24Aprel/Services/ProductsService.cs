@@ -9,13 +9,13 @@ namespace _24Aprel.Services
 {
     public class ProductsService
     {
-        public EcommerDbContext AddProduct(Products product) 
+        public int AddProduct(Products product, EcommerDbContext dbContext) 
         {
 
-            EcommerDbContext dbcontext = new EcommerDbContext();
+            int count = 0;
 
 
-                foreach (var item in dbcontext.products.ToList())
+                foreach (var item in dbContext.products.ToList())
                 {
                     if (item.Name != product.Name)
                     {
@@ -23,9 +23,8 @@ namespace _24Aprel.Services
                         {
                             if (product.Count >= 0)
                             {
-                            dbcontext.products.Add(product);
-                            dbcontext.SaveChanges();
-                            
+
+                            count++;
                             }
                             else
                             {
@@ -44,7 +43,7 @@ namespace _24Aprel.Services
                         throw new ProductIsAlreadyExist("This produc is exist");
                     
                     }
-                }return dbcontext;
+                }return count;
             
 
 
